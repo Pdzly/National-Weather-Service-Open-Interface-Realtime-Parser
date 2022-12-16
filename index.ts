@@ -70,4 +70,4 @@ class NWWSOI{
 
 }
 
-module.exports=NWWSOI;
+export default NWWSOI;

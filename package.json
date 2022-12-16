@@ -3,11 +3,14 @@
   "version": "2.0.1",
   "description": "Allows for realtime parsing of warnings, watches etc.",
   "main": "index.js",
+  "type": "module",
   "dependencies": {
-    "@xmpp/client": "0.8.0"
+    "@xmpp/client": "0.8.0",
+    "ts": "^0.2.2",
+    "ts-node": "^10.9.1"
   },
-  "devDependencies": {},
   "scripts": {
+    "start": "ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bugs": {
