@@ -1,8 +1,8 @@
 import IHvtec from "../interfaces/IHvtec";
 
-const Severity = require("../Defs/severity");
-const Cause = require("../Defs/cause");
-const Record = require("../Defs/flood_record");
+import Severity from "../Defs/severity";
+import Cause from "../Defs/cause";
+import Record from "../Defs/flood_record";
 
 class HVTECParser {
   // https://www.weather.gov/media/vtec/VTEC_explanation4-18.pdf
@@ -74,7 +74,7 @@ class HVTECParser {
           fr: split_vtec[6],
         },
       };
-    } catch (exc: any) {
+    } catch (exc) {
       console.error("Something went wrong with: ");
       console.error(hvtec);
     }

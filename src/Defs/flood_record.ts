@@ -1,4 +1,4 @@
-const Record = {
+const Record: {[key:string]: string} = {
     "NO": "A record flood is not expected",
     "NR": "Near record or record flood expected",
     "UU": "Flood without a period of record to compare",

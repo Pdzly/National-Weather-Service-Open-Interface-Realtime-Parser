@@ -1,4 +1,4 @@
-const Cause = {
+const Cause : {[key:string]: string}  = {
     "ER": "Excessive Rainfall",
     "SM": "Snowmelt",
     "RS": "Rain and Snowmelt",

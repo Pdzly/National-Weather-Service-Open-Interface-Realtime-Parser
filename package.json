@@ -2,15 +2,16 @@
   "name": "nwws-oi",
   "version": "2.0.1",
   "description": "Allows for realtime parsing of warnings, watches etc.",
-  "main": "index.js",
+  "main": "build/index.js",
   "type": "module",
   "dependencies": {
-    "@xmpp/client": "0.8.0",
+    "@xmpp/client": "^0.13.1",
+    "@xmpp/debug": "^0.13.0",
     "ts": "^0.2.2",
     "ts-node": "^10.9.1"
   },
   "scripts": {
-    "start": "ts-node index.ts",
+    "start": "ts-node --project tsconfig.json --esm src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bugs": {
@@ -34,5 +35,8 @@
     "parsing"
   ],
   "author": "Matthew Walden",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/xmpp__client": "^0.13.0"
+  }
 }

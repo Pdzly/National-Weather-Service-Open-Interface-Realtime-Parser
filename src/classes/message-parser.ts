@@ -3,17 +3,21 @@ import PVTEC_Parser from "./pvtec-parser";
 import HVTEC_Parser from "./hvtec-parser";
 import UGC_Parser from "./UGC-parser";
 import IPvtec from "../interfaces/IPvtec";
+import IUgc from "../interfaces/IUgc";
 
 class MessageParser {
   // https://mesonet.agron.iastate.edu/vtec/?wfo=KBMX&phenomena=TO&significance=W&etn=20&year=2018#2019-O-NEW-KBMX-TO-W-0003/USCOMP-N0Q-201901191540
-  private msg: string;
-  private attrs: any;
-  private PolygonCoordinates?: number[][];
-  private extra_info?: { [key: string]: string };
-  private vtec?: IPvtec;
-  private ugc?: string;
-  private ParseAndFindMultiLine(name: string, arr_value: any) {
-    const extra_info: { [key: string]: string } = {};
+  public msg: string;
+  public attrs: any;
+  public PolygonCoordinates?: number[][];
+  public extra_info?: { [key: string]: string };
+  public vtec?: IPvtec;
+  public ugc?: IUgc;
+  public ParseAndFindMultiLine(
+    name: string,
+    arr_value: any,
+    extra_info: { [key: string]: string }
+  ) {
     if (this.msg.includes(name)) {
       const beggingSub = this.msg.search(name);
       const newString = this.msg.substring(beggingSub, this.msg.length);
@@ -36,8 +40,11 @@ class MessageParser {
     return extra_info;
   }
 
-  ParseAndFindOneLine(name: string, arr_value: any) {
-    const extra_info: { [key: string]: string } = {};
+  public ParseAndFindOneLine(
+    name: string,
+    arr_value: any,
+    extra_info: { [key: string]: string }
+  ) {
     if (this.msg.includes(name)) {
       const beggingSub = this.msg.search(name);
       const newString = this.msg.substring(beggingSub, this.msg.length);
@@ -50,7 +57,7 @@ class MessageParser {
     return extra_info;
   }
 
-  constructor(new_msg: string, new_attrs: any) {
+  constructor(new_msg: any, new_attrs: any) {
     this.msg = decodeURI(new_msg);
     this.attrs = new_attrs;
 
@@ -64,22 +71,24 @@ class MessageParser {
 
       let extra_info: { [key: string]: string } = {};
 
-      this.ParseAndFindMultiLine("HAZARD...", "Hazard");
-      this.ParseAndFindMultiLine("SOURCE...", "Source");
-      this.ParseAndFindMultiLine("IMPACT...", "Impact");
+      this.ParseAndFindMultiLine("HAZARD...", "Hazard", extra_info);
+      this.ParseAndFindMultiLine("SOURCE...", "Source", extra_info);
+      this.ParseAndFindMultiLine("IMPACT...", "Impact", extra_info);
       this.ParseAndFindMultiLine(
         "Locations impacted include...",
-        "LocationsInclude"
+        "LocationsInclude",
+        extra_info
       );
       this.ParseAndFindMultiLine(
         "PRECAUTIONARY/PREPAREDNESS ACTIONS...",
-        "Actions"
+        "Actions",
+        extra_info
       );
 
-      this.ParseAndFindOneLine("HAIL...", "Hail");
-      this.ParseAndFindOneLine("WIND...", "Wind");
-      this.ParseAndFindOneLine("TORNADO...", "Tornado");
-      this.ParseAndFindOneLine("WATERSPOUT...", "Waterspout");
+      this.ParseAndFindOneLine("HAIL...", "Hail", extra_info);
+      this.ParseAndFindOneLine("WIND...", "Wind", extra_info);
+      this.ParseAndFindOneLine("TORNADO...", "Tornado", extra_info);
+      this.ParseAndFindOneLine("WATERSPOUT...", "Waterspout", extra_info);
 
       //Find Coordinates
 

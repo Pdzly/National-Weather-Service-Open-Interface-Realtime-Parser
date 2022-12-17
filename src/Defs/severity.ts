@@ -1,4 +1,4 @@
-const Severity = {
+const Severity : {[key:string]: string} = {
     "N": "None",
     "0": "areal flood or flash flood products",
     "1": "Minor",
